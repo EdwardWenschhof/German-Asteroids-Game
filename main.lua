@@ -1,6 +1,6 @@
 function love.load()
     love.window.setTitle('German Asteroid Game')
-    love.graphics.setBackgroundColor(255, 255, 255)
+    love.graphics.setBackgroundColor(0, 0, 0)
     love.window.setFullscreen(true)
 end
 
