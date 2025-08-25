@@ -6,3 +6,9 @@ function Asteroid:new(word)
     asteroid.word = word
     return asteroid
 end
+
+function Asteroid:draw()
+    local width, height = love.graphics.getDimensions()
+    love.graphics.setColor(220, 220, 220)
+    love.graphics.circle('fill', width/2, 0, 50)
+end
