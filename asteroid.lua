@@ -7,6 +7,7 @@ function Asteroid:new(word)
     return asteroid
 end
 
+-- might replace later with sprite
 function Asteroid:draw()
     local width, height = love.graphics.getDimensions()
     love.graphics.setColor(220, 220, 220)
