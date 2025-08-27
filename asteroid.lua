@@ -1,11 +1,12 @@
 local Asteroid = {}
 Asteroid.__index = Asteroid
 
-function Asteroid:new()
+function Asteroid:new(asteroidNumber)
     local asteroid = setmetatable({}, self)
     -- asteroid.word = word
     asteroid.startX = self:getStartingPos()
     asteroid.currY = 0
+    asteroid.asteroidNumber = asteroidNumber
     return asteroid
 end
 
