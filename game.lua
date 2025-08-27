@@ -3,14 +3,22 @@ local Asteroid = require('asteroid')
 local Game = {}
 Game.__index = Game
 
-function Game:new()
+function Game:new(totalAsteroids)
     local game = setmetatable({}, self)
     game.asteroids = {}
     game.numAsteroids = 0
+    game.totalAsteroids = totalAsteroids
     game.asteroidSpeeds = {50, 100, 200, 250, 275}
+    game:createAsteroids()
     local w, h = love.graphics.getDimensions()
     game.height = h
     return game
+end
+
+function Game:createAsteroids()
+    for i=1,self.totalAsteroids do
+        self:createNewAsteroid()
+    end
 end
 
 function Game:createNewAsteroid()
