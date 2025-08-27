@@ -5,8 +5,7 @@ function Column:new(center, radius)
     local column = setmetatable({}, self)
     column.center = center
     column.radius = radius
-    column.leftExtent = center - radius
-    column.rightExtent = center + radius
+    column.occupied = false
     return column
 end
 
