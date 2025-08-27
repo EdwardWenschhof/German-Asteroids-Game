@@ -1,12 +1,13 @@
 local Asteroid = {}
 Asteroid.__index = Asteroid
 
-function Asteroid:new(asteroidNumber)
+function Asteroid:new(asteroidNumber, speed)
     local asteroid = setmetatable({}, self)
     -- asteroid.word = word
     asteroid.startX = self:getStartingPos()
     asteroid.currY = 0
     asteroid.asteroidNumber = asteroidNumber
+    self.speed = speed
     return asteroid
 end
 
@@ -17,8 +18,8 @@ function Asteroid:draw()
     love.graphics.setColor(0, 0, 0)
 end
 
-function Asteroid:update(dt, speed)
-    self.currY = self.currY + (speed * dt)
+function Asteroid:update(dt)
+    self.currY = self.currY + (self.speed * dt)
 end
 
 function Asteroid:getStartingPos()
