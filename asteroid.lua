@@ -29,7 +29,7 @@ function Asteroid:update(dt)
 end
 
 function Asteroid:getStartingPos()
-    local startW = love.math.random(0, self.w)
+    local startW = love.math.random(0 + self.radius, self.w - self.radius)
     return startW
 end
 
