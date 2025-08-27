@@ -16,7 +16,7 @@ function Game:new(totalAsteroids)
 end
 
 function Game:createAsteroids()
-    while self.numAsteroids <= self.totalAsteroids do
+    while self.numAsteroids < self.totalAsteroids do
         self:createNewAsteroid()
     end
 end
