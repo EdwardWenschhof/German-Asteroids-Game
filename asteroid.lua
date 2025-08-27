@@ -7,7 +7,7 @@ function Asteroid:new(asteroidNumber, speed)
     asteroid.startX = self:getStartingPos()
     asteroid.currY = 0
     asteroid.asteroidNumber = asteroidNumber
-    self.speed = speed
+    asteroid.speed = speed
     return asteroid
 end
 
