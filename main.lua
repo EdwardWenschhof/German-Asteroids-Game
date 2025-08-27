@@ -1,11 +1,15 @@
-local Asteroid = require('asteroid')
-local a
+local Game = require('game')
+local g
 
 function love.load()
+    love.math.setRandomSeed(os.time())
     love.window.setTitle('German Asteroid Game')
     love.graphics.setBackgroundColor(0, 0, 0)
     love.window.setFullscreen(true)
-    a = Asteroid:new('hello')
+    g = Game:new()
+    for i=1,5 do
+        g:createNewAsteroid()
+    end
 end
 
 -- Function for debugging for now. Allows me to quit a fullscreen window
@@ -15,6 +19,10 @@ function love.keypressed(key)
     end
 end
 
+function love.update(dt)
+    g:update(dt)
+end
+
 function love.draw()
-    a:draw()
+    g:draw()
 end
