@@ -8,6 +8,7 @@ function Asteroid:new(asteroidNumber, speed)
     asteroid.asteroidNumber = asteroidNumber
     asteroid.speed = speed
 
+    -- for now while using circles
     asteroid.w = w
     asteroid.h = h
     asteroid.radius = asteroid.w * .04
