@@ -6,7 +6,7 @@ function love.load()
     love.window.setTitle('German Asteroid Game')
     love.graphics.setBackgroundColor(0, 0, 0)
     love.window.setFullscreen(true)
-    g = Game:new(10)
+    g = Game:new(8)
 end
 
 -- Function for debugging for now. Allows me to quit a fullscreen window
