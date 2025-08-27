@@ -8,6 +8,8 @@ function Game:new()
     self.asteroids = {}
     self.numAsteroids = 0
     self.asteroidSpeeds = {50, 75, 100}
+    local w, h = love.graphics.getDimensions()
+    self.height = h
     return game
 end
 
@@ -23,6 +25,25 @@ end
 
 function Game:destroyAsteroid(asteroid)
     table.remove(asteroid.asteroidNumber)
+end
+
+function Game:draw()
+    if self.numAsteroids >= 1 then
+        for i=1,self.numAsteroids do
+            self.asteroids[i]:draw()
+        end
+    end
+end
+
+function Game:update(dt)
+        if self.numAsteroids >= 1 then
+        for i=1,self.numAsteroids do
+            self.asteroids[i]:update(dt)
+            if self.asteroids[i].currY > self.height then
+                self:destroyAsteroid(self.asteroids[i])
+            end
+        end
+    end
 end
 
 return Game
