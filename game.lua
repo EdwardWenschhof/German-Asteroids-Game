@@ -5,17 +5,17 @@ Game.__index = Game
 
 function Game:new()
     local game = setmetatable({}, self)
-    self.asteroids = {}
-    self.numAsteroids = 0
-    self.asteroidSpeeds = {50, 75, 100}
+    game.asteroids = {}
+    game.numAsteroids = 0
+    game.asteroidSpeeds = {50, 100, 200, 250, 275}
     local w, h = love.graphics.getDimensions()
-    self.height = h
+    game.height = h
     return game
 end
 
 function Game:createNewAsteroid()
     -- choose random asteroid speed
-    local speedChoice = love.math.random(1, 3)
+    local speedChoice = love.math.random(#self.asteroidSpeeds)
     local speed = self.asteroidSpeeds[speedChoice]
 
     self.numAsteroids = self.numAsteroids + 1
@@ -24,7 +24,16 @@ function Game:createNewAsteroid()
 end
 
 function Game:destroyAsteroid(asteroid)
-    table.remove(asteroid.asteroidNumber)
+    if asteroid and asteroid.asteroidNumber then
+        table.remove(self.asteroids, asteroid.asteroidNumber)
+        self.numAsteroids = math.max(0, self.numAsteroids - 1)
+        -- reindex remaining asteroids so they start at 1
+        for i = 1, self.numAsteroids do
+            if self.asteroids[i] then
+                self.asteroids[i].asteroidNumber = i
+            end
+        end
+    end
 end
 
 function Game:draw()
@@ -36,14 +45,17 @@ function Game:draw()
 end
 
 function Game:update(dt)
-        if self.numAsteroids >= 1 then
-        for i=1,self.numAsteroids do
-            self.asteroids[i]:update(dt)
-            if self.asteroids[i].currY > self.height then
-                self:destroyAsteroid(self.asteroids[i])
+    for i=1,self.numAsteroids do
+        local a = self.asteroids[i]
+        if a then
+            a:update(dt)
+            if a.currY > self.height then
+                self:destroyAsteroid(a)
             end
         end
+
     end
 end
+
 
 return Game
