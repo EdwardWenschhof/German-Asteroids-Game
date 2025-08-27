@@ -5,12 +5,15 @@ Game.__index = Game
 
 function Game:new(totalAsteroids)
     local game = setmetatable({}, self)
+    local w, h = love.graphics.getDimensions()
+    
+    game.radius = (w / (totalAsteroids + 5)) / 2
     game.asteroids = {}
     game.numAsteroids = 0
     game.totalAsteroids = totalAsteroids
     game.asteroidSpeeds = {50, 100, 200, 250, 275}
     game:createAsteroids()
-    local w, h = love.graphics.getDimensions()
+
     game.height = h
     return game
 end
@@ -27,7 +30,7 @@ function Game:createNewAsteroid()
     local speed = self.asteroidSpeeds[speedChoice]
 
     self.numAsteroids = self.numAsteroids + 1
-    local a = Asteroid:new(self.numAsteroids, speed)
+    local a = Asteroid:new(self.numAsteroids, speed, self.radius)
     table.insert(self.asteroids, self.numAsteroids, a)
 end
 

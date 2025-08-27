@@ -1,7 +1,7 @@
 local Asteroid = {}
 Asteroid.__index = Asteroid
 
-function Asteroid:new(asteroidNumber, speed)
+function Asteroid:new(asteroidNumber, speed, radius)
     local asteroid = setmetatable({}, self)
     local w, h = love.graphics.getDimensions()
 
@@ -11,7 +11,7 @@ function Asteroid:new(asteroidNumber, speed)
     -- for now while using circles
     asteroid.w = w
     asteroid.h = h
-    asteroid.radius = asteroid.w * .04
+    asteroid.radius = radius
     asteroid.startX = asteroid:getStartingPos()
     asteroid.currY = 0
 
