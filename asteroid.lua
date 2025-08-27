@@ -1,7 +1,7 @@
 local Asteroid = {}
 Asteroid.__index = Asteroid
 
-function Asteroid:new(asteroidNumber, speed, radius)
+function Asteroid:new(asteroidNumber, speed, radius, center)
     local asteroid = setmetatable({}, self)
     local w, h = love.graphics.getDimensions()
 
@@ -12,7 +12,7 @@ function Asteroid:new(asteroidNumber, speed, radius)
     asteroid.w = w
     asteroid.h = h
     asteroid.radius = radius
-    asteroid.startX = asteroid:getStartingPos()
+    asteroid.startX = center
     asteroid.currY = 0
 
     return asteroid
@@ -27,11 +27,6 @@ end
 
 function Asteroid:update(dt)
     self.currY = self.currY + (self.speed * dt)
-end
-
-function Asteroid:getStartingPos()
-    local startW = love.math.random(0 + self.radius, self.w - self.radius)
-    return startW
 end
 
 return Asteroid
