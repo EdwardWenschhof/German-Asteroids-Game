@@ -1,15 +1,24 @@
-Asteroid = {}
+local Asteroid = {}
 Asteroid.__index = Asteroid
 
 function Asteroid:new(word)
     local asteroid = setmetatable({}, self)
     asteroid.word = word
+    asteroid.startX, asteroid.startY = self:getStartingPos()
     return asteroid
 end
 
 -- might replace later with sprite
 function Asteroid:draw()
-    local width, height = love.graphics.getDimensions()
-    love.graphics.setColor(220, 220, 220)
-    love.graphics.circle('fill', width/2, 0, 50)
+    love.graphics.setColor(.64, .64, .64)
+    love.graphics.circle('fill', self.startX, self.startY, 50)
+    love.graphics.setColor(0, 0, 0)
 end
+
+function Asteroid:getStartingPos()
+    local w, h = love.graphics.getDimensions()
+    local startW = love.math.random(0, w)
+    return startW, 0
+end
+
+return Asteroid
