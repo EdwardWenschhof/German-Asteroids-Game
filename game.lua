@@ -7,7 +7,8 @@ function Game:new(totalAsteroids)
     local game = setmetatable({}, self)
     local w, h = love.graphics.getDimensions()
     
-    game.radius = (w / (totalAsteroids + 5)) / 2
+    game.numColumns = totalAsteroids + 5
+    game.radius = (w / (game.numColumns)) / 2
     game.asteroids = {}
     game.numAsteroids = 0
     game.totalAsteroids = totalAsteroids
