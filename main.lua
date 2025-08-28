@@ -14,6 +14,7 @@ function love.keypressed(key)
     if key == "escape" then
         love.event.quit()
     end
+    g:keypressed(key)
 end
 
 function love.update(dt)

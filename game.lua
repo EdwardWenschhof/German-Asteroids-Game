@@ -112,5 +112,8 @@ function Game:update(dt)
     self:createAsteroids()
 end
 
+function Game:keypressed(key)
+    self.interface:keypressed(key)
+end
 
 return Game

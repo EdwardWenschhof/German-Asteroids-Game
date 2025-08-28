@@ -17,4 +17,7 @@ function Interface:drawBoard()
     love.graphics.setColor(0, 0, 0)
 end
 
+function Interface:keypressed(key)
+end
+
 return Interface
