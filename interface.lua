@@ -12,18 +12,20 @@ end
 
 function Interface:drawBoard()
     love.graphics.setColor(1, 1, 1)
-    local font = love.graphics.newFont(30)
-    local textWidth = font:getWidth(self.boxText)
 
     love.graphics.line(0, self.height - self.typeSpace, self.width, self.height - self.typeSpace)
     love.graphics.line((1/3) * self.width, self.height, (1/3) * self.width, self.height - self.typeSpace)
     love.graphics.line((2/3) * self.width, self.height, (2/3) * self.width, self.height - self.typeSpace)
-    love.graphics.print(self.boxText, font, math.floor(self.width / 2), math.floor(self.height - (self.typeSpace) / 2), 0, 1, 1, textWidth / 2)
+    love.graphics.printf(self.boxText, math.floor((1/3) * self.width), math.floor(self.height - (self.typeSpace) / 2), self.width * (1/3), "center")
     love.graphics.setColor(0, 0, 0)
 end
 
 function Interface:textinput(t)
-    self.boxText = self.boxText .. t
+    local newText = self.boxText .. t
+    local textWidth = love.graphics.getFont():getWidth(newText)
+    if textWidth <= (1/3) * self.width then
+        self.boxText = newText
+    end
 end
 
 return Interface

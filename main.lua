@@ -6,6 +6,8 @@ function love.load()
     love.window.setTitle('German Asteroid Game')
     love.graphics.setBackgroundColor(0, 0, 0)
     love.window.setFullscreen(true)
+    local font = love.graphics.newFont(30)
+    love.graphics.setFont(font)
     g = Game:new(5)
 end
 
