@@ -31,6 +31,8 @@ end
 function Game:drawBoard()
     love.graphics.setColor(1, 1, 1)
     love.graphics.line(0, self.height - self.typeSpace, self.width, self.height - self.typeSpace)
+    love.graphics.line((1/3) * self.width, self.height, (1/3) * self.width, self.height - self.typeSpace)
+    love.graphics.line((2/3) * self.width, self.height, (2/3) * self.width, self.height - self.typeSpace)
     love.graphics.setColor(0, 0, 0)
 end
 
