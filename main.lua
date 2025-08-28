@@ -17,6 +17,10 @@ function love.keypressed(key)
     g:keypressed(key)
 end
 
+function love.textinput(t)
+    g:textinput(t)
+end
+
 function love.update(dt)
     g:update(dt)
 end
