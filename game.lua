@@ -7,6 +7,8 @@ Game.__index = Game
 function Game:new(totalAsteroids)
     local game = setmetatable({}, self)
     local w, h = love.graphics.getDimensions()
+    game.height = h
+    game.width = w
 
     game.asteroids = {}
     game.cols = {}
@@ -17,11 +19,19 @@ function Game:new(totalAsteroids)
     game.totalAsteroids = totalAsteroids
     game.asteroidSpeeds = {50, 100, 200, 250, 275}
 
+    game.typeSpace = (1/8) * h
+
     game:createColumns(w)
     game:createAsteroids()
 
-    game.height = h
+
     return game
+end
+
+function Game:drawBoard()
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.line(0, self.height - self.typeSpace, self.width, self.height - self.typeSpace)
+    love.graphics.setColor(0, 0, 0)
 end
 
 function Game:createColumns(w)
@@ -87,6 +97,7 @@ function Game:destroyAsteroid(asteroid)
 end
 
 function Game:draw()
+    self:drawBoard()
     if self.numAsteroids >= 1 then
         for i=1,self.numAsteroids do
             self.asteroids[i]:draw()
@@ -99,7 +110,7 @@ function Game:update(dt)
         local a = self.asteroids[i]
         if a then
             a:update(dt)
-            if a.currY > self.height then
+            if a.currY > (self.height - self.radius) - self.typeSpace then
                 self:destroyAsteroid(a)
             end
         end
