@@ -19,9 +19,6 @@ function Interface:drawBoard()
     love.graphics.setColor(0, 0, 0)
 end
 
-function Interface:keypressed(key)
-end
-
 function Interface:textinput(t)
     self.boxText = self.boxText .. t
 end
