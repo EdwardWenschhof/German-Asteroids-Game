@@ -1,4 +1,5 @@
 local Game = require('game')
+local config = require('config')
 local g
 
 function love.load()
@@ -8,7 +9,8 @@ function love.load()
     love.window.setFullscreen(true)
     local font = love.graphics.newFont(30)
     love.graphics.setFont(font)
-    g = Game:new(5)
+    config.load()
+    g = Game:new()
 end
 
 -- Function for debugging for now. Allows me to quit a fullscreen window
