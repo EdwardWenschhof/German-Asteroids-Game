@@ -4,15 +4,11 @@ local Interface = require('interface')
 local Game = {}
 Game.__index = Game
 
-function Game:new(totalAsteroids)
+function Game:new()
     local game = setmetatable({}, self)
-
-    local w, h = love.graphics.getDimensions()
-    game.height = h
-    game.width = w
-
-    game.asteroidManager = AsteroidManager:new(totalAsteroids, w, h)
-    game.interface = Interface:new(w, h)
+    
+    game.asteroidManager = AsteroidManager:new()
+    game.interface = Interface:new()
 
     return game
 end

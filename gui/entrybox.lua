@@ -1,11 +1,13 @@
+local config = require('config')
+
 local EntryBox = {}
 EntryBox.__index = EntryBox
 
-function EntryBox:new(w, h, startY)
+function EntryBox:new(startY)
     local entryBox = setmetatable({}, self)
     entryBox.text = ""
-    entryBox.width = w
-    entryBox.height = h
+    entryBox.width = config.width
+    entryBox.height = config.height
     entryBox.startY = startY
     return entryBox
 end

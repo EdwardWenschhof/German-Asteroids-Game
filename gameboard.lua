@@ -1,12 +1,14 @@
+local config = require('config')
+
 local GameBoard = {}
 GameBoard.__index = GameBoard
 
-function GameBoard:new(w, h, endY)
-    local gameBoard = setmetatable({}, self)
-    gameBoard.width = w
-    gameBoard.height = h
-    gameBoard.endY = endY
-    return gameBoard
+function GameBoard:new(endY)
+    local g = setmetatable({}, self)
+    g.width = config.width
+    g.height = config.height
+    g.endY = endY
+    return g
 end
 
 function GameBoard:draw()

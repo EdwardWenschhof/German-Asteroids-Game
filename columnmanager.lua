@@ -1,10 +1,12 @@
+local config = require('config')
+
 local ColumnManager = {}
 ColumnManager.__index = ColumnManager
 
-function ColumnManager:new(width, totalAsteroids)
+function ColumnManager:new()
     local m = setmetatable({}, self)
-    m.width = width
-    m.numColumns = totalAsteroids + 5
+    m.width = config.width
+    m.numColumns = config.totalAsteroids + 5
     m.radius = (m.width / m.numColumns) / 2
     m.centers = {}
     m.occupied = {}

@@ -1,16 +1,17 @@
+local config = require('config')
+
 local Asteroid = {}
 Asteroid.__index = Asteroid
 
 function Asteroid:new(speed, radius, center, columnIndex)
     local asteroid = setmetatable({}, self)
-    local w, h = love.graphics.getDimensions()
 
     asteroid.columnIndex = columnIndex
     asteroid.speed = speed
 
     -- for now while using circles
-    asteroid.w = w
-    asteroid.h = h
+    asteroid.w = config.width
+    asteroid.h = config.height
     asteroid.radius = radius
     asteroid.center = center
     asteroid.currY = 0

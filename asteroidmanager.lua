@@ -1,17 +1,18 @@
 local Asteroid = require('asteroid')
 local ColumnManager = require('columnmanager')
+local config = require('config')
 
 local AsteroidManager = {}
 AsteroidManager.__index = AsteroidManager
 
-function AsteroidManager:new(totalAsteroids, width, height)
+function AsteroidManager:new()
     local m = setmetatable({}, self)
-    m.totalAsteroids = totalAsteroids
-    m.width = width
-    m.height = height
+    m.totalAsteroids = config.totalAsteroids
+    m.width = config.width
+    m.height = config.height
+    m.speeds = config.speeds
     m.asteroids = {}
-    m.speeds = {50, 100, 200, 250, 275}
-    m.columns = ColumnManager:new(m.width, m.totalAsteroids)
+    m.columns = ColumnManager:new()
     m:createAsteroids()
     return m
 end

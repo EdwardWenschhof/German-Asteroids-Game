@@ -1,15 +1,16 @@
 local EntryBox = require('gui.entrybox')
+local config = require('config')
 
 local Interface = {}
 Interface.__index = Interface
 
-function Interface:new(w, h)
-    local interface = setmetatable({}, self)
-    interface.width = w
-    interface.height = h
-    interface.typeSpace = (1/8) * h
-    interface.entryBox = EntryBox:new(w, h, h * (7/8))
-    return interface
+function Interface:new()
+    local i = setmetatable({}, self)
+    i.width = config.width
+    i.height = config.height
+    i.typeSpace = config.typeSpace
+    i.entryBox = EntryBox:new(i.height * (7/8))
+    return i
 end
 
 function Interface:draw()
