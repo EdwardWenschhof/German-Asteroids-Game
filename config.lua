@@ -6,6 +6,7 @@ function config.load()
     
     -- layout preferences
     config.typeSpace = (1/8) * config.height
+    config.boardHeight = (7/8) * config.height
 
     -- asteroid preferences
     config.totalAsteroids = 5
