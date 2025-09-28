@@ -6,8 +6,8 @@ ColumnManager.__index = ColumnManager
 function ColumnManager:new()
     local m = setmetatable({}, self)
     m.width = config.width
-    m.numColumns = config.totalAsteroids + 5
-    m.radius = (m.width / m.numColumns) / 2
+    m.numColumns = config.numColumns
+    m.radius = config.asteroidRadius
     m.centers = {}
     m.occupied = {}
     m:_create()

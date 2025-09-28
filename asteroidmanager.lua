@@ -9,11 +9,11 @@ function AsteroidManager:new()
     local m = setmetatable({}, self)
     m.totalAsteroids = config.totalAsteroids
     m.width = config.width
-    m.height = config.height
+    m.height = config.height - config.typeSpace
     m.speeds = config.speeds
     m.asteroids = {}
     m.columns = ColumnManager:new()
-    m:createAsteroids()
+    m:_fillUp()
     return m
 end
 
@@ -31,7 +31,7 @@ function AsteroidManager:_spawnOne()
     local x = self.columns:center(idx)
     local speed = self.speeds[love.math.random(#self.speeds)]
 
-    local a = Asteroid:new(speed, self.radius, x, idx)
+    local a = Asteroid:new(speed, config.asteroidRadius, x, idx)
     table.insert(self.asteroids, a)
 end
 
@@ -46,7 +46,7 @@ function AsteroidManager:update(dt)
     for i = #self.asteroids, 1, -1 do
         local a = self.asteroids[i]
         a:update(dt)
-        if a.currY > (self.height - self.radius) - self.typeSpace then
+        if a.currY > self.height - config.asteroidRadius then
             self:_destroyAt(i)
         end
     end

@@ -9,6 +9,8 @@ function config.load()
 
     -- asteroid preferences
     config.totalAsteroids = 5
+    config.numColumns = config.totalAsteroids + 5
+    config.asteroidRadius = (config.width / config.numColumns) / 2
     config.speeds = {50, 100, 200, 250, 275}
 end
 
