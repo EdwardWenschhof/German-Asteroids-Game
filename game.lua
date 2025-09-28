@@ -26,7 +26,6 @@ function Game:new(totalAsteroids)
     game.asteroidSpeeds = {50, 100, 200, 250, 275}
 
     game:createColumns(w)
-    game:createAsteroids()
 
     return game
 end
@@ -71,16 +70,7 @@ function Game:draw()
 end
 
 function Game:update(dt)
-    for i=1,self.numAsteroids do
-        local a = self.asteroids[i]
-        if a then
-            a:update(dt)
-            if a.currY > (self.height - self.radius) - self.interface.typeSpace then
-                self:destroyAsteroid(a)
-            end
-        end
-    end
-    self:createAsteroids()
+    self.asteroidManager:update(dt)
 end
 
 function Game:textinput(t)
