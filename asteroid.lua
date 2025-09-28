@@ -12,7 +12,7 @@ function Asteroid:new(asteroidNumber, speed, radius, center)
     asteroid.w = w
     asteroid.h = h
     asteroid.radius = radius
-    asteroid.startX = center
+    asteroid.center = center
     asteroid.currY = 0
 
     return asteroid
@@ -21,7 +21,7 @@ end
 -- might replace later with sprite
 function Asteroid:draw()
     love.graphics.setColor(.64, .64, .64)
-    love.graphics.circle('fill', self.startX, self.currY, self.radius)
+    love.graphics.circle('fill', self.center, self.currY, self.radius)
     love.graphics.setColor(0, 0, 0)
 end
 
