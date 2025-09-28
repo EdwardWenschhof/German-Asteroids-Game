@@ -8,24 +8,12 @@ Game.__index = Game
 function Game:new(totalAsteroids)
     local game = setmetatable({}, self)
 
-    game.asteroidManager = AsteroidManager:new(totalAsteroids)
-
-    -- reevaluate
     local w, h = love.graphics.getDimensions()
     game.height = h
     game.width = w
 
-    game.asteroids = {}
-    game.cols = {}
+    game.asteroidManager = AsteroidManager:new(totalAsteroids, w)
     game.interface = Interface:new(w, h)
-
-    game.numColumns = totalAsteroids + 5
-    game.radius = (w / (game.numColumns)) / 2
-    game.numAsteroids = 0
-    game.totalAsteroids = totalAsteroids
-    game.asteroidSpeeds = {50, 100, 200, 250, 275}
-
-    game:createColumns(w)
 
     return game
 end
