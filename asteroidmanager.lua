@@ -1,4 +1,5 @@
 local Asteroid = require('asteroid')
+local Column = require('column')
 
 local AsteroidManager = {}
 AsteroidManager.__index = AsteroidManager
@@ -48,6 +49,32 @@ function AsteroidManager:destroyAsteroid(asteroid)
             end
         end
     end
+end
+
+function AsteroidManager:createColumns(w)
+    local rad = self.radius
+    local colsCreated = 0
+
+    local currCenter = rad
+
+    while currCenter + rad <= w do
+        colsCreated = colsCreated + 1
+        local currCol = Column:new(currCenter, rad)
+        table.insert(self.cols, colsCreated, currCol)
+        currCenter = currCenter + (rad * 2)
+    end
+end
+
+function AsteroidManager:chooseColumn()
+    local colNum = love.math.random(#self.cols)
+    local col = self.cols[colNum]
+    repeat
+        colNum = love.math.random(#self.cols)
+        col = self.cols[colNum]
+    until not col.occupied
+
+    col.occupied = true
+    return col
 end
 
 function AsteroidManager:update(dt)
