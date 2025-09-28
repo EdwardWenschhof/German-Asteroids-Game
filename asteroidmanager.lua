@@ -5,66 +5,57 @@ local AsteroidManager = {}
 AsteroidManager.__index = AsteroidManager
 
 function AsteroidManager:new(totalAsteroids, width, height)
-    local asteroidManager = setmetatable({}, self)
-
-    asteroidManager.totalAsteroids = totalAsteroids
-    asteroidManager.width = width
-    asteroidManager.height = height
-
-    asteroidManager.asteroids = {}
-    asteroidManager.numAsteroids = 0
-    asteroidManager.asteroidSpeeds = {50, 100, 200, 250, 275}
-
-    asteroidManager.columnManager = ColumnManager:new(asteroidManager.width, asteroidManager.totalAsteroids)
-
-    asteroidManager:createAsteroids()
-    return asteroidManager
+    local m = setmetatable({}, self)
+    m.totalAsteroids = totalAsteroids
+    m.width = width
+    m.height = height
+    m.asteroids = {}
+    m.speeds = {50, 100, 200, 250, 275}
+    m.columns = ColumnManager:new(m.width, m.totalAsteroids)
+    m:createAsteroids()
+    return m
 end
 
-function AsteroidManager:createAsteroids()
-    while self.numAsteroids < self.totalAsteroids do
-        self:createNewAsteroid()
+function AsteroidManager:_fillUp()
+    -- spawn until we reach target or run out of free columns
+    while #self.asteroids < self.totalAsteroids and self.columns:hasFree() do
+        self:_spawnOne()
     end
 end
 
-function AsteroidManager:createNewAsteroid()
-    -- choose random asteroid speed
-    local speedChoice = love.math.random(#self.asteroidSpeeds)
-    local speed = self.asteroidSpeeds[speedChoice]
+function AsteroidManager:_spawnOne()
+    local idx = self.columns:acquire()
+    if not idx then return end
 
-    self.numAsteroids = self.numAsteroids + 1
+    local x = self.columns:center(idx)
+    local speed = self.speeds[love.math.random(#self.speeds)]
 
-    local center = self.columnManager:getFreeCenter()
-    
-    local a = Asteroid:new(self.numAsteroids, speed, self.radius, center)
-    table.insert(self.asteroids, self.numAsteroids, a)
+    local a = Asteroid:new(speed, self.radius, x, idx)
+    table.insert(self.asteroids, a)
 end
 
-function AsteroidManager:destroyAsteroid(asteroid)
-    if asteroid and asteroid.asteroidNumber then
-        self.columnManager:freeColumn(asteroid.center)
-        table.remove(self.asteroids, asteroid.asteroidNumber)
-        self.numAsteroids = math.max(0, self.numAsteroids - 1)
-        -- reindex remaining asteroids so they start at 1
-        for i = 1, self.numAsteroids do
-            if self.asteroids[i] then
-                self.asteroids[i].asteroidNumber = i
-            end
-        end
+function AsteroidManager:_destroyAt(i)
+    local a = table.remove(self.asteroids, i)
+    if a and a.columnIndex then
+        self.columns:release(a.columnIndex)
     end
 end
 
 function AsteroidManager:update(dt)
-    for i=1,self.numAsteroids do
+    for i = #self.asteroids, 1, -1 do
         local a = self.asteroids[i]
-        if a then
-            a:update(dt)
-            if a.currY > (self.height - self.radius) - self.interface.typeSpace then
-                self:destroyAsteroid(a)
-            end
+        a:update(dt)
+        if a.currY > (self.height - self.radius) - self.typeSpace then
+            self:_destroyAt(i)
         end
     end
-    self:createAsteroids()
+    self:_fillUp()
+end
+
+function AsteroidManager:draw()
+    for _, a in ipairs(self.asteroids) do
+        a:draw()
+    end
 end
 
 return AsteroidManager
