@@ -1,5 +1,4 @@
 local AsteroidManager = require('asteroidmanager')
-
 local Interface = require('interface')
 
 local Game = {}
