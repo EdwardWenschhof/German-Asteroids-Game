@@ -1,4 +1,4 @@
-local Game = require('game')
+local Game = require('gameplay.game')
 local config = require('config')
 local g
 

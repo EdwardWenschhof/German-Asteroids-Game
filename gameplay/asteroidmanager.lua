@@ -1,5 +1,5 @@
-local Asteroid = require('asteroid')
-local ColumnManager = require('columnmanager')
+local Asteroid = require('gameplay.asteroid')
+local ColumnManager = require('gameplay.columnmanager')
 local config = require('config')
 
 local AsteroidManager = {}
