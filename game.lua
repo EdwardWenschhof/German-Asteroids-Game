@@ -12,7 +12,7 @@ function Game:new(totalAsteroids)
     game.height = h
     game.width = w
 
-    game.asteroidManager = AsteroidManager:new(totalAsteroids, w)
+    game.asteroidManager = AsteroidManager:new(totalAsteroids, w, h)
     game.interface = Interface:new(w, h)
 
     return game

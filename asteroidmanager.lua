@@ -1,14 +1,21 @@
 local Asteroid = require('asteroid')
+local ColumnManager = require('columnmanager')
 
 local AsteroidManager = {}
 AsteroidManager.__index = AsteroidManager
 
-function AsteroidManager:new(totalAsteroids)
+function AsteroidManager:new(totalAsteroids, width, height)
     local asteroidManager = setmetatable({}, self)
+
+    asteroidManager.totalAsteroids = totalAsteroids
+    asteroidManager.width = width
+    asteroidManager.height = height
+
     asteroidManager.asteroids = {}
     asteroidManager.numAsteroids = 0
     asteroidManager.asteroidSpeeds = {50, 100, 200, 250, 275}
-    asteroidManager.totalAsteroids = totalAsteroids
+
+    asteroidManager.columnManager = ColumnManager:new(asteroidManager.width, asteroidManager.totalAsteroids)
 
     asteroidManager:createAsteroids()
     return asteroidManager
@@ -27,18 +34,15 @@ function AsteroidManager:createNewAsteroid()
 
     self.numAsteroids = self.numAsteroids + 1
 
-    local col = self:chooseColumn()
+    local center = self.columnManager:getFreeCenter()
     
-    local a = Asteroid:new(self.numAsteroids, speed, self.radius, col.center)
-    a.column = col
+    local a = Asteroid:new(self.numAsteroids, speed, self.radius, center)
     table.insert(self.asteroids, self.numAsteroids, a)
 end
 
 function AsteroidManager:destroyAsteroid(asteroid)
     if asteroid and asteroid.asteroidNumber then
-        if asteroid.column then
-            asteroid.column.occupied = false
-        end
+        self.columnManager:freeColumn(asteroid.center)
         table.remove(self.asteroids, asteroid.asteroidNumber)
         self.numAsteroids = math.max(0, self.numAsteroids - 1)
         -- reindex remaining asteroids so they start at 1
