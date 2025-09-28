@@ -12,6 +12,11 @@ function Interface:new(w, h)
     return interface
 end
 
+function Interface:draw()
+    self:drawBoard()
+end
+
+-- move this function to GameBoard
 function Interface:drawBoard()
     love.graphics.setColor(1, 1, 1)
     love.graphics.line(0, self.height - self.typeSpace, self.width, self.height - self.typeSpace)
