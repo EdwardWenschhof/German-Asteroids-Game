@@ -9,6 +9,8 @@ function AsteroidManager:new(totalAsteroids)
     asteroidManager.numAsteroids = 0
     asteroidManager.asteroidSpeeds = {50, 100, 200, 250, 275}
     asteroidManager.totalAsteroids = totalAsteroids
+
+    asteroidManager:createAsteroids()
     return asteroidManager
 end
 
@@ -46,6 +48,19 @@ function AsteroidManager:destroyAsteroid(asteroid)
             end
         end
     end
+end
+
+function AsteroidManager:update(dt)
+    for i=1,self.numAsteroids do
+        local a = self.asteroids[i]
+        if a then
+            a:update(dt)
+            if a.currY > (self.height - self.radius) - self.interface.typeSpace then
+                self:destroyAsteroid(a)
+            end
+        end
+    end
+    self:createAsteroids()
 end
 
 return AsteroidManager
