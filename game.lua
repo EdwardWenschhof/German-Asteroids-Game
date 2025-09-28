@@ -1,5 +1,5 @@
 local AsteroidManager = require('asteroidmanager')
-local Column = require('column')
+
 local Interface = require('interface')
 
 local Game = {}
@@ -29,33 +29,6 @@ function Game:new(totalAsteroids)
 
     return game
 end
-
-function Game:createColumns(w)
-    local rad = self.radius
-    local colsCreated = 0
-
-    local currCenter = rad
-
-    while currCenter + rad <= w do
-        colsCreated = colsCreated + 1
-        local currCol = Column:new(currCenter, rad)
-        table.insert(self.cols, colsCreated, currCol)
-        currCenter = currCenter + (rad * 2)
-    end
-end
-
-function Game:chooseColumn()
-    local colNum = love.math.random(#self.cols)
-    local col = self.cols[colNum]
-    repeat
-        colNum = love.math.random(#self.cols)
-        col = self.cols[colNum]
-    until not col.occupied
-
-    col.occupied = true
-    return col
-end
-
 
 function Game:draw()
     self.interface:draw()
