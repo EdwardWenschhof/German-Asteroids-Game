@@ -10,7 +10,6 @@ function AsteroidManager:new()
     m.totalAsteroids = config.totalAsteroids
     m.width = config.width
     m.height = config.height - config.typeSpace
-    m.speeds = config.speeds
     m.asteroids = {}
     m.columns = ColumnManager:new()
     m:_fillUp()
@@ -29,7 +28,7 @@ function AsteroidManager:_spawnOne()
     if not idx then return end
 
     local x = self.columns:center(idx)
-    local speed = self.speeds[love.math.random(#self.speeds)]
+    local speed = config.speeds[love.math.random(#config.speeds)]
 
     local a = Asteroid:new(speed, config.asteroidRadius, x, idx)
     table.insert(self.asteroids, a)
