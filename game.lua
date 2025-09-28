@@ -21,13 +21,6 @@ end
 function Game:draw()
     self.interface:draw()
     self.asteroidManager:draw()
-
-    -- delete/move to asteroidManager
-    if self.numAsteroids >= 1 then
-        for i=1,self.numAsteroids do
-            self.asteroids[i]:draw()
-        end
-    end
 end
 
 function Game:update(dt)
