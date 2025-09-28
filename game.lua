@@ -1,4 +1,4 @@
-local Asteroid = require('asteroid')
+local AsteroidManager = require('asteroidmanager')
 local Column = require('column')
 local Interface = require('interface')
 
@@ -8,6 +8,9 @@ Game.__index = Game
 function Game:new(totalAsteroids)
     local game = setmetatable({}, self)
 
+    game.asteroidManager = AsteroidManager:new(totalAsteroids)
+
+    -- reevaluate
     local w, h = love.graphics.getDimensions()
     game.height = h
     game.width = w
@@ -56,7 +59,10 @@ end
 
 
 function Game:draw()
-    self.interface:drawBoard()
+    self.interface:draw()
+    self.asteroidManager:draw()
+
+    -- delete/move to asteroidManager
     if self.numAsteroids >= 1 then
         for i=1,self.numAsteroids do
             self.asteroids[i]:draw()
