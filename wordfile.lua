@@ -3,7 +3,9 @@ local config = require('config')
 local wordfile = {}
 
 function wordfile.load()
-    wordfile._check()
+    if not wordfile._check() then
+        wordfile._default()
+    end
     wordfile.words = wordfile._read()
 end
 
@@ -12,7 +14,7 @@ function wordfile._read()
     local contents, size = love.filesystem.read(config.wordsFile)
     -- implement the following later after implementing word entry
     -- if not contents then
-    --     return nil
+    --     return nil -- eventually if nil then prompt to add words
     -- end
 
     for line in contents:gmatch("[^\r\n]+") do
@@ -28,10 +30,29 @@ function wordfile._read()
 end
 
 function wordfile._check()
-    if not love.filesystem.getInfo(config.wordsFile) then
-        love.filesystem.write("words.csv", "house,Haus\nmouse,Maus\ncup,Tasse\ntea,Tee\ncoffee,Kaffee")
-    end
+    return love.filesystem.getInfo(config.wordsFile)
 
+end
+
+-- will eventually be defunct
+function wordfile._default()
+    love.filesystem.write("words.csv", "house,Haus\nmouse,Maus\ncup,Tasse\ntea,Tee\ncoffee,Kaffee")
+end
+
+function wordfile.create(data)
+    local prepped = wordfile._prepData(data)
+    love.filesystem.write("words.csv", prepped)
+end
+
+-- data here has to be a table containing table with word pairs
+function wordfile._prepData(data)
+    local lines = {}
+    for _, pair in ipairs(data) do
+        local prompt = tostring(pair[1] or "")
+        local answer = tostring(pair[2] or "")
+        table.insert(lines, prompt .. "," .. answer)
+    end
+    return table.concat(lines, "\n")
 end
 
 return wordfile
