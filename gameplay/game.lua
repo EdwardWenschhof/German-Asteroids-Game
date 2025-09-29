@@ -1,21 +1,20 @@
 local AsteroidManager = require('gameplay.asteroidmanager')
 local Interface = require('gui.interface')
-local config = require('config')
+local InputManager = require('inputmanager')
 
 local Game = {}
 Game.__index = Game
 
 function Game:new()
     local game = setmetatable({}, self)
-    self.text = ""
     game.asteroidManager = AsteroidManager:new()
     game.interface = Interface:new()
-
+    game.inputManager = InputManager:new()
     return game
 end
 
 function Game:draw()
-    self.interface:draw(self.text)
+    self.interface:draw(self.inputManager.text)
     self.asteroidManager:draw()
 end
 
@@ -24,11 +23,7 @@ function Game:update(dt)
 end
 
 function Game:textinput(t)
-    local newText = self.text .. t
-    local textWidth = love.graphics.getFont():getWidth(newText)
-    if textWidth <= (1/3) * config.width then
-        self.text = newText
-    end
+    self.inputManager:textinput(t)
 end
 
 return Game
