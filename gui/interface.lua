@@ -15,13 +15,9 @@ function Interface:new()
     return i
 end
 
-function Interface:draw()
-    self.entryBox:draw()
+function Interface:draw(text)
+    self.entryBox:draw(text)
     self.gameBoard:draw()
-end
-
-function Interface:textinput(t)
-    self.entryBox:textinput(t)
 end
 
 return Interface
