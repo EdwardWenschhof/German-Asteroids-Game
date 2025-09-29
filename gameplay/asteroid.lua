@@ -3,7 +3,7 @@ local config = require('config')
 local Asteroid = {}
 Asteroid.__index = Asteroid
 
-function Asteroid:new(speed, radius, center, columnIndex, word)
+function Asteroid:new(speed, radius, center, columnIndex, prompt, answer)
     local asteroid = setmetatable({}, self)
 
     asteroid.columnIndex = columnIndex
@@ -15,7 +15,8 @@ function Asteroid:new(speed, radius, center, columnIndex, word)
     asteroid.radius = radius
     asteroid.center = center
     asteroid.currY = 0
-    asteroid.word = word
+    asteroid.prompt = prompt
+    asteroid.answer = answer
 
     return asteroid
 end

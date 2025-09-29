@@ -46,7 +46,7 @@ function AsteroidManager:update(dt, text)
     for i = #self.asteroids, 1, -1 do
         local a = self.asteroids[i]
         a:update(dt)
-        if a.currY > self.height - config.asteroidRadius or a.word == text then
+        if a.currY > self.height - config.asteroidRadius or a.answer == text then
             self:_destroyAt(i)
         end
     end
