@@ -39,7 +39,7 @@ function wordfile._default()
     love.filesystem.write("words.csv", "house,Haus\nmouse,Maus\ncup,Tasse\ntea,Tee\ncoffee,Kaffee")
 end
 
-function wordfile.create(data)
+function wordfile.createFile(data)
     local prepped = wordfile._prepData(data)
     love.filesystem.write("words.csv", prepped)
 end
@@ -53,6 +53,11 @@ function wordfile._prepData(data)
         table.insert(lines, prompt .. "," .. answer)
     end
     return table.concat(lines, "\n")
+end
+
+function wordfile.appendPair(prompt, answer)
+    local line = tostring(prompt) .. "," ..tostring(answer) .. "\n"
+    love.filesystem.append(config.wordsFile, line)
 end
 
 return wordfile
