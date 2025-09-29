@@ -7,7 +7,7 @@ startscreen.buttons = {}
 function startscreen:load()
     local bw, bh = 200, 50 -- button width/height
     local cx = config.width / 2 - bw / 2
-    local startY = config.height / 3
+    local startY = config.height * (2/3)
 
     table.insert(self.buttons, Button:new("Play", cx, startY, bw, bh, function()
         CurrentState = "game"
