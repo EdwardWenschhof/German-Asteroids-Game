@@ -25,6 +25,17 @@ end
 function Asteroid:draw()
     love.graphics.setColor(.64, .64, .64)
     love.graphics.circle('fill', self.center, self.currY, self.radius)
+    local font = love.graphics.getFont()
+    local textHeight = font:getHeight()
+
+    love.graphics.setColor(0, 0, 0)
+    love.graphics.printf(
+        self.prompt,
+        self.center - self.radius,          -- x: left edge of the box
+        self.currY - textHeight / 2,        -- y: vertically centered
+        self.radius * 2,                    -- width: diameter of circle
+        "center"
+    )
     love.graphics.setColor(0, 0, 0)
 end
 
