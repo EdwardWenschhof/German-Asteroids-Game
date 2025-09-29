@@ -3,6 +3,7 @@ local config = require('config')
 local wordfile = {}
 
 function wordfile.load()
+    wordfile._check()
     wordfile.words = wordfile._read()
 end
 
@@ -23,6 +24,14 @@ function wordfile._read()
         end
         table.insert(data, {field1, field2})
     end
+    return data
+end
+
+function wordfile._check()
+    if not love.filesystem.getInfo(config.wordsFile) then
+        love.filesystem.write("words.csv", "house,Haus\nmouse,Maus\ncup,Tasse\ntea,Tee\ncoffee,Kaffee")
+    end
+
 end
 
 return wordfile
