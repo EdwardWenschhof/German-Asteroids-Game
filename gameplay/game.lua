@@ -29,7 +29,7 @@ end
 function Game:keypressed(key)
     local o = self.inputManager:keypressed(key)
     if o ~= nil then
-        
+        self.asteroidManager:update(0, o)
     end
 end
 
