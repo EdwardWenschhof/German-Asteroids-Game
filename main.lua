@@ -18,6 +18,9 @@ function love.keypressed(key)
     if key == "escape" then
         love.event.quit()
     end
+    if key == "backspace" then
+        g:keypressed(key)
+    end
 end
 
 function love.textinput(t)

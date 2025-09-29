@@ -17,4 +17,12 @@ function InputManager:textinput(t)
     end
 end
 
+function InputManager:keypressed(key)
+    if key == "backspace" then
+        self.text = string.sub(self.text, 1, -2)
+    elseif key == "return" then
+
+    end
+end
+
 return InputManager

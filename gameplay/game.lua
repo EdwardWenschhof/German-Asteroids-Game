@@ -26,4 +26,8 @@ function Game:textinput(t)
     self.inputManager:textinput(t)
 end
 
+function Game:keypressed(key)
+    self.inputManager:keypressed(key)
+end
+
 return Game
