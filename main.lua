@@ -1,5 +1,6 @@
 local Game = require('gameplay.game')
 local config = require('config')
+local wordfile = require('wordfile')
 local g
 
 function love.load()
@@ -10,6 +11,7 @@ function love.load()
     local font = love.graphics.newFont(30)
     love.graphics.setFont(font)
     config.load()
+    wordfile.load()
     g = Game:new()
 end
 
