@@ -15,12 +15,7 @@ end
 
 -- Function for debugging for now. Allows me to quit a fullscreen window
 function love.keypressed(key)
-    if key == "escape" then
-        love.event.quit()
-    end
-    if key == "backspace" then
-        g:keypressed(key)
-    end
+    g:keypressed(key)
 end
 
 function love.textinput(t)

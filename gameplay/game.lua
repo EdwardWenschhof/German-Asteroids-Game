@@ -27,7 +27,10 @@ function Game:textinput(t)
 end
 
 function Game:keypressed(key)
-    self.inputManager:keypressed(key)
+    local o = self.inputManager:keypressed(key)
+    if o ~= nil then
+        
+    end
 end
 
 return Game

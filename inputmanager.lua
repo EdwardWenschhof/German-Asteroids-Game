@@ -5,7 +5,7 @@ InputManager.__index = InputManager
 
 function InputManager:new()
     local m = setmetatable({}, self)
-    self.text = ""
+    m.text = ""
     return m
 end
 
@@ -18,11 +18,16 @@ function InputManager:textinput(t)
 end
 
 function InputManager:keypressed(key)
-    if key == "backspace" then
+    if key == "escape" then
+        love.event.quit()
+    elseif key == "backspace" then
         self.text = string.sub(self.text, 1, -2)
     elseif key == "return" then
-
+        local t = self.text
+        self.text = ""
+        return t
     end
+    return nil
 end
 
 return InputManager
