@@ -41,11 +41,12 @@ function AsteroidManager:_destroyAt(i)
     end
 end
 
-function AsteroidManager:update(dt)
+-- Iterate backwards to safely remove asteroids in place
+function AsteroidManager:update(dt, text)
     for i = #self.asteroids, 1, -1 do
         local a = self.asteroids[i]
         a:update(dt)
-        if a.currY > self.height - config.asteroidRadius then
+        if a.currY > self.height - config.asteroidRadius or a.word == text then
             self:_destroyAt(i)
         end
     end
