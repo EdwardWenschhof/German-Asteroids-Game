@@ -1,5 +1,6 @@
 local Asteroid = require('gameplay.asteroid')
 local ColumnManager = require('gameplay.columnmanager')
+local wordfile = require('wordfile')
 local config = require('config')
 
 local AsteroidManager = {}
@@ -29,8 +30,9 @@ function AsteroidManager:_spawnOne()
 
     local x = self.columns:center(idx)
     local speed = config.speeds[love.math.random(#config.speeds)]
-
-    local a = Asteroid:new(speed, config.asteroidRadius, x, idx)
+    local prompt, answer = self:_choosePair()
+    
+    local a = Asteroid:new(speed, config.asteroidRadius, x, idx, prompt, answer)
     table.insert(self.asteroids, a)
 end
 
@@ -41,11 +43,17 @@ function AsteroidManager:_destroyAt(i)
     end
 end
 
-function AsteroidManager:update(dt)
+function AsteroidManager:_choosePair()
+    local pair = wordfile.words[love.math.random(#wordfile.words)]
+    return pair[config.prompt], pair[config.answer]
+end
+
+-- Iterate backwards to safely remove asteroids in place
+function AsteroidManager:update(dt, text)
     for i = #self.asteroids, 1, -1 do
         local a = self.asteroids[i]
         a:update(dt)
-        if a.currY > self.height - config.asteroidRadius then
+        if a.currY > self.height - config.asteroidRadius or a.answer == text then
             self:_destroyAt(i)
         end
     end

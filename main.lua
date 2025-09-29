@@ -1,5 +1,6 @@
 local Game = require('gameplay.game')
 local config = require('config')
+local wordfile = require('wordfile')
 local g
 
 function love.load()
@@ -10,14 +11,13 @@ function love.load()
     local font = love.graphics.newFont(30)
     love.graphics.setFont(font)
     config.load()
+    wordfile.load()
     g = Game:new()
 end
 
 -- Function for debugging for now. Allows me to quit a fullscreen window
 function love.keypressed(key)
-    if key == "escape" then
-        love.event.quit()
-    end
+    g:keypressed(key)
 end
 
 function love.textinput(t)
