@@ -30,6 +30,7 @@ function startscreen:update(dt)
 end
 
 function startscreen:draw()
+    love.graphics.setFont(config.titleFont)
     love.graphics.printf("German Asteroids Game", 0, config.height/6, config.width, "center")
     for _, b in ipairs(self.buttons) do
         b:draw()

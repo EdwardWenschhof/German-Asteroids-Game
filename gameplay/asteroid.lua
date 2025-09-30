@@ -23,10 +23,10 @@ end
 
 -- might replace later with sprite
 function Asteroid:draw()
+    love.graphics.setFont(config.entryFont)
     love.graphics.setColor(.64, .64, .64)
     love.graphics.circle('fill', self.center, self.currY, self.radius)
-    local font = love.graphics.getFont()
-    local textHeight = font:getHeight()
+    local textHeight = config.entryFont:getHeight()
 
     love.graphics.setColor(0, 0, 0)
     love.graphics.printf(

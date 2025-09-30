@@ -1,3 +1,5 @@
+local config = require('config')
+
 local Button = {}
 Button.__index = Button
 
@@ -26,6 +28,7 @@ function Button:draw()
 
     -- text
     love.graphics.setColor(0, 0, 0)
+    love.graphics.setFont(config.entryFont)
     love.graphics.printf(self.text, self.x, self.y + self.h/4, self.w, "center")
 
     love.graphics.setColor(1, 1, 1)

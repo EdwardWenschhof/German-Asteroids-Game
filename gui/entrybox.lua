@@ -22,6 +22,7 @@ end
 
 function EntryBox:drawText(text)
     love.graphics.setColor(1, 1, 1)
+    love.graphics.setFont(config.entryFont)
     local textY = self.height - ((self.height - self.startY) / 2)
     love.graphics.printf(text, math.floor((1/3) * self.width), textY, self.width * (1/3), "center")
     love.graphics.setColor(0, 0, 0)

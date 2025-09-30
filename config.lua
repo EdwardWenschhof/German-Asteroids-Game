@@ -18,6 +18,10 @@ function config.load()
     config.wordsFile = "words.csv"
     config.prompt = 1
     config.answer = 2
+
+    -- font preferences
+    config.entryFont = love.graphics.newFont(30)
+    config.titleFont = love.graphics.newFont(75)
 end
 
 return config

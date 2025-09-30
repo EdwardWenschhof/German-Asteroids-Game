@@ -7,12 +7,7 @@ local g
 CurrentState = "menu"
 
 function love.load()
-    love.math.setRandomSeed(os.time())
-    love.window.setTitle('German Asteroid Game')
     love.graphics.setBackgroundColor(0, 0, 0)
-    love.window.setFullscreen(true)
-    local font = love.graphics.newFont(30)
-    love.graphics.setFont(font)
     config.load()
     wordfile.load()
     startscreen:load()
