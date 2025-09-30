@@ -1,33 +1,28 @@
 local config = require('config')
 
-local InputManager = {}
-InputManager.__index = InputManager
+local inputmanager = {
+    text = ""
+}
 
-function InputManager:new()
-    local m = setmetatable({}, self)
-    m.text = ""
-    return m
-end
-
-function InputManager:textinput(t)
-    local newText = self.text .. t
+function inputmanager:textinput(t)
+    local newText = inputmanager.text .. t
     local textWidth = love.graphics.getFont():getWidth(newText)
     if textWidth <= (1/3) * config.width then
-        self.text = newText
+        inputmanager.text = newText
     end
 end
 
-function InputManager:keypressed(key)
+function inputmanager:keypressed(key)
     if key == "escape" then
         love.event.quit()
     elseif key == "backspace" then
-        self.text = string.sub(self.text, 1, -2)
+        inputmanager.text = string.sub(inputmanager.text, 1, -2)
     elseif key == "return" then
-        local t = self.text
-        self.text = ""
+        local t = inputmanager.text
+        inputmanager.text = ""
         return t
     end
     return nil
 end
 
-return InputManager
+return inputmanager
